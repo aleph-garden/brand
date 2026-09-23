@@ -34,5 +34,8 @@ breaking change.
 
 ## Licences
 
-The CSS and the lockups are MIT. The fonts are under the SIL Open Font
-Licence 1.1, with the licence texts in `fonts/`.
+The mark and the lockups are not licensed. They may be used only with
+written permission from Christopher Mühl, and that includes the files in
+`lockups/` and `source/`. The fonts are under the SIL Open Font Licence 1.1,
+with the licence texts in `fonts/`. The CSS and the documentation are MIT.
+`LICENSE` has the full terms.

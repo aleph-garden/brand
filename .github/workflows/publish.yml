@@ -45,6 +45,4 @@ jobs:
           found=$(node -p "require('./package.json').version")
           [ "$found" = "$expected" ] || { echo "package.json is $found, tag says $expected" >&2; exit 1; }
 
-      # No --provenance: npm generates provenance only for public source
-      # repositories. Add it when this repository goes public.
-      - run: npm publish
+      - run: npm publish --provenance
