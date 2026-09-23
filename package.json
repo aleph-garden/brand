@@ -1,0 +1,24 @@
+{
+  "name": "@aleph-garden/brand",
+  "version": "0.1.0-dev",
+  "description": "The Aleph Garden design tokens, typefaces and lockups",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aleph-garden/brand.git"
+  },
+  "homepage": "https://aleph.garden",
+  "type": "module",
+  "exports": {
+    "./tokens.css": "./tokens.css",
+    "./fonts.css": "./fonts.css",
+    "./fonts/*": "./fonts/*",
+    "./lockups/*": "./lockups/*"
+  },
+  "files": ["tokens.css", "fonts.css", "fonts", "lockups"],
+  "sideEffects": ["*.css"],
+  "publishConfig": {
+    "access": "public",
+    "tag": "dev"
+  }
+}

@@ -1,0 +1,8 @@
+# The designer's source files: large binaries kept outside version control.
+/1x/
+/2x/
+/4x/
+/SVG/
+/Logo*
+node_modules/
+*.tgz

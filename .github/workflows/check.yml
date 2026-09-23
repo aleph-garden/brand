@@ -1,0 +1,26 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Every url() in the stylesheets resolves to a packed file
+        run: |
+          packed=$(npm pack --dry-run --json | node -e 'const [p]=JSON.parse(require("fs").readFileSync(0));console.log(p.files.map(f=>f.path).join("\n"))')
+          status=0
+          for ref in $(grep -oh 'url("\./[^"]*")' *.css | sed 's/url("\.\///; s/")//'); do
+            echo "$packed" | grep -qx "$ref" || { echo "missing from the tarball: $ref" >&2; status=1; }
+          done
+          exit $status

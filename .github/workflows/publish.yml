@@ -1,0 +1,50 @@
+# The first version of the package goes to npm by hand, because npm's OIDC
+# exchange authenticates against a package that already exists. After that,
+# configure the trusted publisher for this workflow and the `npm` environment
+# and set the repository variable NPM_TRUSTED_PUBLISHING to `enabled`; until
+# then the guard on the job keeps it from running.
+
+name: Publish to npm
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-brand
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: vars.NPM_TRUSTED_PUBLISHING == 'enabled'
+    runs-on: ubuntu-latest
+    # The trusted publisher names this environment, so a token is minted only
+    # inside it. The environment restricts deployments to v* tags and requires
+    # a reviewer.
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      # The runner ships an npm older than the OIDC exchange.
+      - run: npm install -g npm@^11.5.1
+
+      - name: Check the tag against the manifest
+        run: |
+          expected="${GITHUB_REF_NAME#v}"
+          found=$(node -p "require('./package.json').version")
+          [ "$found" = "$expected" ] || { echo "package.json is $found, tag says $expected" >&2; exit 1; }
+
+      # No --provenance: npm generates provenance only for public source
+      # repositories. Add it when this repository goes public.
+      - run: npm publish
