@@ -1,5 +1,9 @@
 # @aleph-garden/brand
 
+> Before 1.0. Any interface here can change in any release, including the
+> ones marked `-dev` patches. Build against it to experiment, depend on an
+> exact version, and expect to follow breaking changes by hand.
+
 The look every Aleph Garden surface shares: the design tokens, the three
 typefaces and the lockups. Pages, documentation themes and hosts import them
 from here instead of carrying copies.
@@ -28,9 +32,8 @@ Any of these sets it: `data-ag-theme="dark|light"`, `data-theme="dark|light"`
 
 ## Versions
 
-The package is a prerelease. Versions go to the `dev` dist-tag, so depend on
-an exact version. The token names are the contract; renaming one is a
-breaking change.
+Versions go to the `dev` dist-tag. The token names are the contract, so
+renaming one is a breaking change.
 
 ## Licences
 
