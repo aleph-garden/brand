@@ -6,6 +6,32 @@
    kinds of page set it: `data-ag-theme` (the Aleph Garden hosts), `data-theme`
    (Starlight) and `.theme-dark` / `.theme-light` (Obsidian vault snippets). */
 
+/* Stand-ins drawn from a local Arial-metric face (Arial, Helvetica, Liberation
+   Sans, Arimo) while the brand faces load, scaled so text set in them wraps
+   where the brand face will: `size-adjust` matches the average advance of
+   English text weighted by letter frequency, the overrides match the brand
+   face's hhea ascent, descent and line gap. Computed with fontTools against
+   Liberation Sans, which is metric-compatible with Arial. A system without any
+   of these faces skips them and falls through to system-ui. */
+@font-face {
+  font-family: "IBM Plex Sans Fallback";
+  src: local("Arial"), local("ArialMT"), local("Helvetica"), local("Liberation Sans"), local("Arimo");
+  size-adjust: 101.57%;
+  ascent-override: 100.91%;
+  descent-override: 27.07%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sora Fallback";
+  font-weight: 600;
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Bold"), local("Liberation Sans Bold"), local("Arimo Bold");
+  size-adjust: 107.28%;
+  ascent-override: 90.42%;
+  descent-override: 27.03%;
+  line-gap-override: 0%;
+}
+
 :root {
   color-scheme: light dark;
 
@@ -45,8 +71,8 @@
   --ag-focus: var(--ag-accent);
 
   /* type */
-  --ag-font-text: "IBM Plex Sans", system-ui, "Helvetica Neue", Arial, sans-serif;
-  --ag-font-display: "Sora", "IBM Plex Sans", system-ui, sans-serif;
+  --ag-font-text: "IBM Plex Sans", "IBM Plex Sans Fallback", system-ui, "Helvetica Neue", Arial, sans-serif;
+  --ag-font-display: "Sora", "Sora Fallback", "IBM Plex Sans", system-ui, sans-serif;
   --ag-font-mono: "IBM Plex Mono", ui-monospace, "Liberation Mono", monospace;
 
   --ag-type-2xs: 0.6875rem;

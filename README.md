@@ -20,9 +20,25 @@ npm install @aleph-garden/brand
 | Path | What it holds |
 | --- | --- |
 | `tokens.css` | Every `--ag-*` custom property, light and dark |
-| `fonts.css` | `@font-face` rules for IBM Plex Sans, IBM Plex Mono and Sora, Latin subsets |
+| `fonts.css` | `@font-face` rules for IBM Plex Sans, IBM Plex Mono and Sora, Latin subsets, loading the files beside it |
+| `fonts-aleph-garden.css` | The same rules, loading the files from `https://aleph.garden/fonts/` |
 | `fonts/*` | The font files and their licences |
 | `lockups/*` | The mark and the lockups as SVG, light and dark |
+
+## Which font stylesheet
+
+`fonts.css` points at the font files inside the package, so a bundler copies
+them into each site that imports it. Use it on a site of your own.
+
+`fonts-aleph-garden.css` points at `https://aleph.garden/fonts/`, where the
+aleph.garden site serves the files once for the landing page and every
+project's documentation, so a reader moving between them downloads each face
+once. It works only while that host serves those paths, and a page on another
+host fetches them cross-origin; the site answers `/fonts/*` with
+`Access-Control-Allow-Origin: *` for that reason.
+
+`tokens.css` declares fallback faces drawn from a local Arial-metric face and
+scaled to the brand faces, so text does not rewrap when the brand face arrives.
 
 ## Light and dark
 
